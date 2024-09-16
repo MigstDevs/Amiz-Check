@@ -16,6 +16,9 @@ const { Routes } = require('discord-api-types/v9');
 // Importar comandos
 const { convencer } = require('./comandos/convincente.js');
 
+// Importar botões
+const { rejeitarConvincente } = require('./buttonsFunctionality/convincenteButtons.js');
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -73,23 +76,12 @@ client.on('interactionCreate', async (interaction) => {
 
     if (invitedUserId === interaction.user.id) {
       if (interaction.customId === 'aceitar_button') {
-        await interaction.update({ content: 'Você aceitou o convite!', components: [] });
+        await interaction.update('Você aceitou o convite!');
       } else if (interaction.customId === 'rejeitar_button') {
-        const inviterId = interaction.message.interaction.user.id;
-        const inviter = await client.users.fetch(inviterId);
-
-        const rejectedEmbed = new EmbedBuilder()
-          .setColor(0xFF0000) // Red color
-          .setTitle('Convite de Jogo')
-          .setDescription(`Convite rejeitado por ${interaction.user.tag}.`);
-
-        await interaction.update({ embeds: [rejectedEmbed], components: [] });
-
-        // Send a DM to the inviter
-        inviter.send(`${interaction.user.tag} rejeitou seu convite para jogar C.O.N.V.I.N.C.E.N.T.E em ${interaction.guild.name}`);
+        rejeitarConvincente(interaction, options);
       }
     } else {
-      await interaction.reply({ content: 'Quem você acha que é, mano? Você não consegue tomar decisões pelos outros, cara!!', ephemeral: true });
+      await interaction.reply({ content: 'Quem você acha que é, mano? Você não consegue tomar decisões pelos outros! **VAZA! CHISPA VAI!**', ephemeral: true });
     }
   } else if (interaction.isCommand()) {
     if (interaction.commandName === 'convincente') {
