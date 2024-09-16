@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 app.listen(6969, () => {
-  console.log("Arruinando amizades");
+  console.log("Quase lá...");
 });
 
 app.get("/", (req, res) => {
