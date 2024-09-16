@@ -51,7 +51,7 @@ const commands = [
 ];
 
 client.on("ready", async () => {
-  console.log(`Olá! Eu tô online!`);
+  console.log('Ah sim! Saber se eu estou online! Mas é claro que tô, oxente!');
 
   client.user.setPresence({
     activities: [
@@ -100,13 +100,13 @@ client.on('interactionCreate', async (interaction) => {
 
 (async () => {
   try {
-    console.log('Started refreshing global (/) commands.');
+    console.log('Tô atualizando meus comandos, pera um pouco...');
 
     await rest.put(Routes.applicationCommands(clientId), {
       body: commands,
     });
 
-    console.log('Successfully reloaded global (/) commands.');
+    console.log('Atualizei eles, o que tu queria mesmo?');
   } catch (error) {
     console.error(error);
   }
